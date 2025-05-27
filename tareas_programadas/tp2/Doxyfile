@@ -1,0 +1,43 @@
+# Nombre del proyecto
+PROJECT_NAME           = "Tarea Programada 2 - Árbol Binario de Búsqueda"
+
+# Archivo README como página principal
+USE_MDFILE_AS_MAINPAGE = README.md
+
+# Entrada: dónde buscar los archivos fuente
+INPUT                  = ./source ./README.md
+
+# Buscar recursivamente dentro de source
+RECURSIVE              = YES
+
+# Carpeta de salida para la documentación generada
+OUTPUT_DIRECTORY       = ./doc
+
+# Extraer toda la información aunque no tenga comentarios explícitos
+EXTRACT_ALL            = YES
+
+# Incluir los comentarios de clases privadas
+EXTRACT_PRIVATE        = YES
+
+# Permitir el uso de Markdown (para README.md)
+MARKDOWN_SUPPORT       = YES
+
+# Generar solo HTML
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
+
+# Mostrar gráficas de relaciones entre clases
+HAVE_DOT               = YES
+CALL_GRAPH             = YES
+CALLER_GRAPH           = YES
+CLASS_DIAGRAMS         = YES
+DOT_MULTI_TARGETS      = YES
+
+# Idioma de la documentación
+OUTPUT_LANGUAGE        = Spanish
+
+# Mostrar archivos incluidos (#include)
+SHOW_INCLUDE_FILES     = YES
+
+# Archivos que ignorar (opcional)
+EXCLUDE                = ./doc
