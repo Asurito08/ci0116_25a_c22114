@@ -1,7 +1,5 @@
 #pragma once
 
-// ===== SinglyLinkedListNode =====
-
 template <typename DataType>
 SLListNode<DataType>::SLListNode() : next(nullptr) {}
 
@@ -32,7 +30,6 @@ void SLListNode<DataType>::setNext(SLListNode<DataType>* newNode) {
   next = newNode;
 }
 
-// ===== SLList =====
 
 template <typename DataType>
 SLList<DataType>::SLList() {

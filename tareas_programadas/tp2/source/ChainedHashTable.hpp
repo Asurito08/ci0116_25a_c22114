@@ -35,3 +35,5 @@ class ChainedHashTable {
 
   std::vector<DLList<DataType>> table;
 };
+
+#include "ChainedHashTable.tpp"
