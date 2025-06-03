@@ -4,10 +4,6 @@ template <typename DataType>
 SLListNode<DataType>::SLListNode() : next(nullptr) {}
 
 template <typename DataType>
-SLListNode<DataType>::SLListNode(const DataType& value, SLListNode<DataType>* next)
-    : key(value), next(next) {}
-
-template <typename DataType>
 SLListNode<DataType>::~SLListNode() {}
 
 template <typename DataType>

@@ -1,3 +1,11 @@
+/**
+ * @file BinarySearchTree.hpp
+ * @brief Definición de las clases plantilla BSTree y BSTreeNode para un árbol binario de búsqueda.
+ * 
+ * Basado en el trabajo del Prof. Arturo Camacho, Universidad de Costa Rica.
+ * Modificado por el Prof. Allan Berrocal, Universidad de Costa Rica.
+ */
+
 /*
  Credits
  Based on: Prof. Arturo Camacho, Universidad de Costa Rica

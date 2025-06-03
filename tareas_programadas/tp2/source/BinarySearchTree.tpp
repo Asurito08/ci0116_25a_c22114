@@ -2,7 +2,6 @@
 #include <iostream>
 #include <random>
 
-// ===== BSTreeNode Implementation =====
 template <typename DataType>
 BSTreeNode<DataType>::BSTreeNode(const DataType &value, BSTreeNode<DataType> *parent,
                                   BSTreeNode<DataType> *left, BSTreeNode<DataType> *right)
@@ -10,7 +9,6 @@ BSTreeNode<DataType>::BSTreeNode(const DataType &value, BSTreeNode<DataType> *pa
 
 template <typename DataType>
 BSTreeNode<DataType>::~BSTreeNode() {
-    // No eliminar left ni right aquí para evitar doble borrado
 }
 
 template <typename DataType>
@@ -48,7 +46,6 @@ void BSTreeNode<DataType>::setRight(BSTreeNode<DataType> *r) {
     right = r;
 }
 
-// ===== BSTree Implementation =====
 
 // Constructor
 template <typename DataType>
@@ -95,14 +92,17 @@ void BSTree<DataType>::insert(const DataType &value) {
 template <typename DataType>
 BSTreeNode<DataType>* BSTree<DataType>::search(const BSTreeNode<DataType> *node,
                                                const DataType &value) const {
-    if (!node || value == node->getKey())
-        return const_cast<BSTreeNode<DataType> *>(node);
-
-    if (value < node->getKey())
-        return search(node->getLeft(), value);
-    else
-        return search(node->getRight(), value);
+    while (node) {
+        if (value == node->getKey())
+            return const_cast<BSTreeNode<DataType> *>(node);
+        else if (value < node->getKey())
+            node = node->getLeft();
+        else
+            node = node->getRight();
+    }
+    return nullptr;
 }
+
 
 template <typename DataType>
 BSTreeNode<DataType>* BSTree<DataType>::getMinimum(const BSTreeNode<DataType> *node) const {
@@ -136,15 +136,31 @@ BSTreeNode<DataType>* BSTree<DataType>::getRoot() const {
     return root;
 }
 
+#include <stack>
+
 template <typename DataType>
 void BSTree<DataType>::inorderWalk(BSTreeNode<DataType> *node) const {
-    if (node) {
-        inorderWalk(node->getLeft());
+    std::stack<BSTreeNode<DataType>*> stack;
+
+    while (node || !stack.empty()) {
+        // Llega al nodo más izquierdo
+        while (node) {
+            stack.push(node);
+            node = node->getLeft();
+        }
+
+        // Procesa el nodo en la cima del stack
+        node = stack.top();
+        stack.pop();
+
         std::cout << node->getKey() << " ";
-        inorderWalk(node->getRight());
+
+        // Cambia al subárbol derecho
+        node = node->getRight();
     }
 }
 
+// Este queda recursivo ya que no aparece en la evaluación
 template <typename DataType>
 void BSTree<DataType>::preorderWalk(BSTreeNode<DataType> *node) const {
     if (node) {
@@ -154,6 +170,7 @@ void BSTree<DataType>::preorderWalk(BSTreeNode<DataType> *node) const {
     }
 }
 
+// Este queda recursivo ya que no está en la evaluación
 template <typename DataType>
 void BSTree<DataType>::postorderWalk(BSTreeNode<DataType> *node) const {
     if (node) {
