@@ -18,9 +18,6 @@ void ChainedHashTable<DataType>::insert(const DataType& value) {
     size_t index = kmodm(value);
     if (table[index].search(value) == nullptr) {
         table[index].insert(value);
-        std::cout << "[Insertar] Valor " << value << " insertado en índice " << index << "\n";
-    } else {
-        std::cout << "[Insertar] Valor " << value << " ya existe en índice " << index << "\n";
     }
 }
 
@@ -36,9 +33,6 @@ void ChainedHashTable<DataType>::remove(const DataType& value) {
     DLListNode<DataType>* node = table[index].search(value);
     if (node != nullptr) {
         table[index].remove(value);
-        std::cout << "[Eliminar] Valor " << value << " eliminado de índice " << index << "\n";
-    } else {
-        std::cout << "[Eliminar] Valor " << value << " no encontrado en índice " << index << "\n";
     }
 }
 

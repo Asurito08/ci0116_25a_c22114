@@ -1,2 +1,5 @@
 pruebas/
+bin/
+build/
+doc/
 .vscode

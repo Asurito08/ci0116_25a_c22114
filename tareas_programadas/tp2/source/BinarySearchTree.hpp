@@ -195,11 +195,21 @@ class BSTree {
   BSTreeNode<DataType> *getRoot() const;
 
   /**
-   * @brief Inserts n random values in the tree for testing purposes.
-   * @param n Number of random values to insert.
+   * @brief Efficiently builds a degenerate (linked-list-like) BST with ordered keys [0, n - 1].
+   * 
+   * This method constructs a binary search tree where each inserted key is greater than the previous one,
+   * resulting in a tree with only right children (no left children), mimicking what would happen if
+   * the keys were inserted sequentially using insert(). However, it avoids the overhead of repeatedly
+   * calling insert by constructing the tree directly.
+   * 
+   * @param n The number of nodes to create, with keys from 0 to n - 1.
+   * 
+   * @note This method is intended to replicate the structure that would result from inserting
+   *       keys in ascending order into the tree, without using insert(). It is significantly
+   *       faster for large values of n.
    */
-  void fastInsert(size_t n);
-  
+  void fastInsert(std::size_t n);
+
  private:
   BSTreeNode<DataType> *root; ///< Pointer to the root node of the tree.
 
@@ -215,5 +225,6 @@ class BSTree {
    */
   void removeNode(BSTreeNode<DataType> *node);
 };
+
 
 #include "BinarySearchTree.tpp"

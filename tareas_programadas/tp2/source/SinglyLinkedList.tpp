@@ -4,6 +4,10 @@ template <typename DataType>
 SLListNode<DataType>::SLListNode() : next(nullptr) {}
 
 template <typename DataType>
+SLListNode<DataType>::SLListNode(DataType key, SLListNode<DataType>* next)
+    : key(key), next(next) {}
+
+template <typename DataType>
 SLListNode<DataType>::~SLListNode() {}
 
 template <typename DataType>
@@ -25,7 +29,6 @@ template <typename DataType>
 void SLListNode<DataType>::setNext(SLListNode<DataType>* newNode) {
   next = newNode;
 }
-
 
 template <typename DataType>
 SLList<DataType>::SLList() {

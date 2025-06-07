@@ -6,4 +6,4 @@ Pertenece a Wilson Chavarría Miranda, de carné C22114
 
 Tarea #1 está incompleta
 
-Tarea #2 se encuentra dentro de la carpeta tp2, en la carpeta de tareas programadas
+Tarea #2 se encuentra dentro de la carpeta tp2, en la carpeta de tareas programadas.

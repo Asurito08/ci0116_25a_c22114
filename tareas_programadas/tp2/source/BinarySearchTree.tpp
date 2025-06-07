@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <random>
+#include <stack>
 
 template <typename DataType>
 BSTreeNode<DataType>::BSTreeNode(const DataType &value, BSTreeNode<DataType> *parent,
@@ -46,23 +47,21 @@ void BSTreeNode<DataType>::setRight(BSTreeNode<DataType> *r) {
     right = r;
 }
 
-
 // Constructor
 template <typename DataType>
 BSTree<DataType>::BSTree() : root(nullptr) {}
 
-// Destructor - borra todo el árbol usando función auxiliar
+template <typename DataType>
+BSTree<DataType>::~BSTree() {
+    deleteSubtree(root);
+}
+
 template <typename DataType>
 void BSTree<DataType>::deleteSubtree(BSTreeNode<DataType>* node) {
     if (!node) return;
     deleteSubtree(node->getLeft());
     deleteSubtree(node->getRight());
     delete node;
-}
-
-template <typename DataType>
-BSTree<DataType>::~BSTree() {
-    deleteSubtree(root);
 }
 
 template <typename DataType>
@@ -90,6 +89,41 @@ void BSTree<DataType>::insert(const DataType &value) {
 }
 
 template <typename DataType>
+void BSTree<DataType>::remove(const DataType &value) {
+    BSTreeNode<DataType>* node = search(root, value);
+    if (!node) return;
+
+    if (node->getLeft() == nullptr || node->getRight() == nullptr) {
+        // Nodo con 0 o 1 hijo
+        removeNode(node);
+    } else {
+        // Nodo con 2 hijos: buscar sucesor
+        BSTreeNode<DataType>* successor = getMinimum(node->getRight());
+        node->key = successor->getKey();
+        removeNode(successor);
+    }
+}
+
+template <typename DataType>
+void BSTree<DataType>::removeNode(BSTreeNode<DataType>* node) {
+    BSTreeNode<DataType>* child = node->getLeft() ? node->getLeft() : node->getRight();
+
+    if (node->getParent() == nullptr) {
+        root = child;
+    } else if (node == node->getParent()->getLeft()) {
+        node->getParent()->setLeft(child);
+    } else {
+        node->getParent()->setRight(child);
+    }
+
+    if (child) child->setParent(node->getParent());
+
+    node->setLeft(nullptr);
+    node->setRight(nullptr);
+    delete node;
+}
+
+template <typename DataType>
 BSTreeNode<DataType>* BSTree<DataType>::search(const BSTreeNode<DataType> *node,
                                                const DataType &value) const {
     while (node) {
@@ -102,7 +136,6 @@ BSTreeNode<DataType>* BSTree<DataType>::search(const BSTreeNode<DataType> *node,
     }
     return nullptr;
 }
-
 
 template <typename DataType>
 BSTreeNode<DataType>* BSTree<DataType>::getMinimum(const BSTreeNode<DataType> *node) const {
@@ -136,8 +169,6 @@ BSTreeNode<DataType>* BSTree<DataType>::getRoot() const {
     return root;
 }
 
-#include <stack>
-
 template <typename DataType>
 void BSTree<DataType>::inorderWalk(BSTreeNode<DataType> *node) const {
     std::stack<BSTreeNode<DataType>*> stack;
@@ -160,7 +191,6 @@ void BSTree<DataType>::inorderWalk(BSTreeNode<DataType> *node) const {
     }
 }
 
-// Este queda recursivo ya que no aparece en la evaluación
 template <typename DataType>
 void BSTree<DataType>::preorderWalk(BSTreeNode<DataType> *node) const {
     if (node) {
@@ -170,7 +200,6 @@ void BSTree<DataType>::preorderWalk(BSTreeNode<DataType> *node) const {
     }
 }
 
-// Este queda recursivo ya que no está en la evaluación
 template <typename DataType>
 void BSTree<DataType>::postorderWalk(BSTreeNode<DataType> *node) const {
     if (node) {
@@ -180,48 +209,15 @@ void BSTree<DataType>::postorderWalk(BSTreeNode<DataType> *node) const {
     }
 }
 
-// Función auxiliar para eliminar un nodo que tiene 0 o 1 hijo
-template <typename DataType>
-void BSTree<DataType>::removeNode(BSTreeNode<DataType>* node) {
-    BSTreeNode<DataType>* child = node->getLeft() ? node->getLeft() : node->getRight();
+template <typename T>
+void BSTree<T>::fastInsert(size_t n) {
+    if (n == 0) return;
 
-    if (node->getParent() == nullptr) {
-        root = child;
-    } else if (node == node->getParent()->getLeft()) {
-        node->getParent()->setLeft(child);
-    } else {
-        node->getParent()->setRight(child);
-    }
+    root = new BSTreeNode<T>(0); // Insertar la raíz manualmente
+    BSTreeNode<T>* current = root;
 
-    if (child) child->setParent(node->getParent());
-
-    node->setLeft(nullptr);
-    node->setRight(nullptr);
-    delete node;
-}
-
-template <typename DataType>
-void BSTree<DataType>::remove(const DataType &value) {
-    BSTreeNode<DataType>* node = search(root, value);
-    if (!node) return;
-
-    if (node->getLeft() == nullptr || node->getRight() == nullptr) {
-        // Nodo con 0 o 1 hijo
-        removeNode(node);
-    } else {
-        // Nodo con 2 hijos: buscar sucesor
-        BSTreeNode<DataType>* successor = getMinimum(node->getRight());
-        node->key = successor->getKey();
-        removeNode(successor);
-    }
-}
-
-template <typename DataType>
-void BSTree<DataType>::fastInsert(size_t n) {
-    std::mt19937 gen(std::random_device{}());
-    std::uniform_int_distribution<DataType> dist(0, 100);
-
-    for (size_t i = 0; i < n; ++i) {
-        insert(dist(gen));
+    for (size_t i = 1; i < n; ++i) {
+        current->right = new BSTreeNode<T>(i);
+        current = current->right;
     }
 }

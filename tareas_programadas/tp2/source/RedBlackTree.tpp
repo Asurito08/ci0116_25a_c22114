@@ -313,14 +313,14 @@ void RBTree<DataType>::remove(const DataType& value) {
     }
 
     if (yOriginalColor == BLACK) {
-        deleteFixup(x);
+        removeFixup(x);
     }
 
     delete z;
 }
 
 template <typename DataType>
-void RBTree<DataType>::deleteFixup(RBTreeNode<DataType>* x) {
+void RBTree<DataType>::removeFixup(RBTreeNode<DataType>* x) {
     while (x != root && x->getColor() == BLACK) {
         if (x == x->getParent()->getLeft()) {
             RBTreeNode<DataType>* w = x->getParent()->getRight();

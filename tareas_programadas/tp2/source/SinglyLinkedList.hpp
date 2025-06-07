@@ -31,6 +31,12 @@ class SLListNode {
   SLListNode();
 
   /**
+   * @brief Constructor que inicializa clave y siguiente nodo.
+   */
+  SLListNode(DataType key, SLListNode<DataType>* next);
+
+
+  /**
    * @brief Destructor del nodo.
    */
   ~SLListNode();
