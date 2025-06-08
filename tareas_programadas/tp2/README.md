@@ -8,6 +8,22 @@ El programa incluye los códigos de las siguientes estructuras de datos; Lista e
 
 La lista doblemente enlazada se usa solamente para las tablas de dispersión.
 
+## Formato del repositorio
+
+Dentro de el directorio principal se encuentran los siguientes archivos; Doxyfile, makefile y README.md
+
+El Doxyfile es el archivo para poder generar la documentación con doxygen.
+
+El makefile es para facilitar la compilación.
+
+Y el README.md es este archivo.
+
+También se encuentran las carpetas docs y source
+
+La carpeta docs es la que incluye el reporte y el enunciado de la tarea, se llama docs y no doc debido a que al crear la documentación con doxygen, este crea una carpeta que se llama doc.
+
+la carpeta source contiene todo el código fuente del proyecto.
+
 ## Manual de usuario
 
 Todos los comandos mencionados en el manual de usuario se tienen que escribir en una terminal que esté en el directorio "tp2"
